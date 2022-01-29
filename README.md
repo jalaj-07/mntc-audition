@@ -105,6 +105,7 @@ Return format:
 
 - Set expiry to session cookies.
 - Use constant time function to validate password.
+- API endpoint for user's current level
 
 ### References
 
