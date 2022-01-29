@@ -97,12 +97,11 @@ app.post("/answer", restrict, (req, res) => {
       // User goes to next level
       else {
         database.userCollection
-          .replaceOne(
+          .updateOne(
             { user: req.session.user.username },
-            { level: req.session.user.level + 1 }
+            { $set: { level: req.session.user.level + 1 } }
           )
-          .then((updatedLevel) => {
-              console.log(updatedLevel)
+          .then((_) => {
             req.session.user.level += 1;
             res.send({ correct: true });
           })
