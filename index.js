@@ -19,7 +19,7 @@ var database = {
   questionsCollection: null,
 };
 
-app.use(express.json())
+app.use(express.json());
 
 // Session middleware
 app.use(
@@ -36,12 +36,13 @@ function authenticate(name, pass) {
   return new Promise((resolve, reject) => {
     database.userCollection.findOne({ username: name }).then((user) => {
       if (!user) reject("cannot find user");
-      else hasher({ password: pass, salt: user.salt }, function (err, _, _, hash) {
-        if (err) reject(err);
-        // TODO: Use a constant time comparison function instead
-        if (hash === user.password) resolve(user);
-        else reject("invalid password");
-      });
+      else
+        hasher({ password: pass, salt: user.salt }, function (err, _, _, hash) {
+          if (err) reject(err);
+          // TODO: Use a constant time comparison function instead
+          if (hash === user.password) resolve(user);
+          else reject("invalid password");
+        });
     });
   });
 }
@@ -89,25 +90,27 @@ app.post("/answer", restrict, (req, res) => {
       }
 
       // End of Quiz
-      if (req.session.user.level === 10) {
+      else if (req.session.user.level === 10) {
         res.send({ correct: true, gameOver: true });
       }
 
       // User goes to next level
-      database.userCollection
-        .replaceOne(
-          { user: req.session.user.name },
-          { level: req.session.user.level + 1 }
-        )
-        .then((_) => {
-          req.session.user.level += 1;
-          res.send({ correct: true });
-        })
-        .catch((msg) => {
-          console.error("Server has encountered 500");
-          console.error(msg);
-          res.status(500).send(msg);
-        });
+      else {
+        database.userCollection
+          .replaceOne(
+            { user: req.session.user.name },
+            { level: req.session.user.level + 1 }
+          )
+          .then((_) => {
+            req.session.user.level += 1;
+            res.send({ correct: true });
+          })
+          .catch((msg) => {
+            console.error("Server has encountered 500");
+            console.error(msg);
+            res.status(500).send(msg);
+          });
+      }
     })
     .catch((msg) => {
       console.error("Server has encountered 500");
@@ -125,7 +128,6 @@ app.get("/logout", function (req, res) {
 
 // User login
 app.post("/login", function (req, res) {
-    console.log(req.body)
   authenticate(req.body.username, req.body.password)
     .then((user) => {
       if (user) {
@@ -149,12 +151,10 @@ app.post("/login", function (req, res) {
 
 app.post("/signup", (req, res) => {
   if (!req.body.username || !req.body.password) {
-    res
-      .status(400)
-      .send({
-        success: false,
-        msg: "Request does not contain username and password",
-      });
+    res.status(400).send({
+      success: false,
+      msg: "Request does not contain username and password",
+    });
   } else {
     database.userCollection
       .findOne({ username: req.body.username })
@@ -200,8 +200,8 @@ app.post("/signup", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.send("<h1>Login Page</h1>")
-})
+  res.send("<h1>Login Page</h1>");
+});
 
 // Starts the application
 function start() {
