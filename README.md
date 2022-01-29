@@ -101,6 +101,10 @@ Return format:
 }
 ```
 
+When a user answers the question correctly, the server will automatically
+increase his level until he correctly answers the last question (level 10).
+The new question can be fetched by accessing `/question` again.
+
 ### TODO
 
 - Set expiry to session cookies.
