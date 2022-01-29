@@ -27,7 +27,10 @@ fetch("/signup", {
     "Content-Type": "application/json",
   },
   method: "POST",
-  body: '{"username":"jalaj","password":"password"}',
+  body: JSON.stringify({
+    username: "username",
+    password: "password",
+  }),
 });
 ```
 
@@ -35,8 +38,8 @@ Return format:
 
 ```json
 {
-    "success": "<boolean (success or not)>",
-    "msg" : "<string (message from server)>"
+  "success": "<boolean (success or not)>",
+  "msg": "<string (message from server)>"
 }
 ```
 
@@ -48,7 +51,10 @@ fetch("/login", {
     "Content-Type": "application/json",
   },
   method: "POST",
-  body: '{"username":"jalaj","password":"password"}',
+  body: JSON.stringify({
+    username: "username",
+    password: "password",
+  }),
 });
 ```
 
@@ -56,8 +62,8 @@ Return format:
 
 ```json
 {
-    "auth": "<boolean (success or not)>",
-    "msg" : "<string (message from server)>"
+  "auth": "<boolean (success or not)>",
+  "msg": "<string (message from server)>"
 }
 ```
 
@@ -71,7 +77,7 @@ Return format:
 
 ```json
 {
-    "question": "<question_text>"
+  "question": "<question_text>"
 }
 ```
 
@@ -83,14 +89,15 @@ fetch("/answer", {
     "Content-Type": "application/json",
   },
   method: "POST",
-  body: '{"answer":"textile"}',
+  body: JSON.stringify({ answer: "your-answer" }),
 });
 ```
+
 Return format:
 
 ```json
 {
-    "correct": "<boolean>"
+  "correct": "<boolean>"
 }
 ```
 
