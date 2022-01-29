@@ -98,10 +98,11 @@ app.post("/answer", restrict, (req, res) => {
       else {
         database.userCollection
           .replaceOne(
-            { user: req.session.user.name },
+            { user: req.session.user.username },
             { level: req.session.user.level + 1 }
           )
-          .then((_) => {
+          .then((updatedLevel) => {
+              console.log(updatedLevel)
             req.session.user.level += 1;
             res.send({ correct: true });
           })
