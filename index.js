@@ -32,11 +32,11 @@ app.use(
 
 // User authenticator function
 function authenticate(name, pass) {
-  console.log("authenticating %s:%s", name);
+  console.log("authenticating %s", name);
   return new Promise((resolve, reject) => {
     database.userCollection.findOne({ username: name }).then((user) => {
       if (!user) reject("cannot find user");
-      hasher({ password: pass, salt: user.salt }, function (err, _, _, hash) {
+      else hasher({ password: pass, salt: user.salt }, function (err, _, _, hash) {
         if (err) reject(err);
         // TODO: Use a constant time comparison function instead
         if (hash === user.password) resolve(user);
