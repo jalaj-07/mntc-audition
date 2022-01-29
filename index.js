@@ -19,6 +19,8 @@ var database = {
   questionsCollection: null,
 };
 
+app.use(express.json())
+
 // Session middleware
 app.use(
   session({
@@ -123,6 +125,7 @@ app.get("/logout", function (req, res) {
 
 // User login
 app.post("/login", function (req, res) {
+    console.log(req.body)
   authenticate(req.body.username, req.body.password)
     .then((user) => {
       if (user) {
@@ -195,6 +198,10 @@ app.post("/signup", (req, res) => {
       });
   }
 });
+
+app.get("/login", (req, res) => {
+    res.send("<h1>Login Page</h1>")
+})
 
 // Starts the application
 function start() {
