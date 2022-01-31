@@ -145,7 +145,7 @@ app.post("/login", function (req, res) {
     })
     .catch((err) => {
       console.log("Could not authenticate user: " + err);
-      res.status(413).send({ auth: false, msg: err });
+      res.status(401).send({ auth: false, msg: err });
     });
 });
 
