@@ -93,6 +93,20 @@ fetch("/answer", {
 });
 ```
 
+### Get the user level
+
+```js
+fetch("/usrlvl");
+```
+
+Return format:
+
+```json
+{
+  "level": "<int (level of the user [1-10])>"
+}
+```
+
 Return format:
 
 ```json
@@ -109,7 +123,6 @@ The new question can be fetched by accessing `/question` again.
 
 - Set expiry to session cookies.
 - Use constant time function to validate password.
-- API endpoint for user's current level
 
 ### References
 

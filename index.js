@@ -85,6 +85,11 @@ app.get("/question", restrict, function (req, res) {
     });
 });
 
+// Get the user level
+app.get("/usrlvl", restrict, function (req, res) {
+  res.send({ level: req.session.user.level });
+});
+
 // Post the answer
 app.post("/answer", restrict, (req, res) => {
   database.questionsCollection
