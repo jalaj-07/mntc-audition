@@ -52,7 +52,12 @@ function restrict(req, res, next) {
   if (req.session.user) {
     next();
   } else {
-    res.redirect("/login");
+    res
+      .status(401)
+      .send(
+        "This page is restricted to logged in users only. " +
+          "Please login to access this page"
+      );
   }
 }
 
